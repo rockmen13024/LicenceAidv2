@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LicenseAid">
         <activity
+            android:name=".MainPageStudent"
+            android:exported="false" />
+        <activity
             android:name=".create_account"
             android:label="Create Account"
             android:parentActivityName=".MainActivity">
@@ -19,11 +22,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.licenseaid.MainActivity" />
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:label="Main Activity"
-            android:exported="true">
+            android:exported="true"
+            android:label="Main Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
