@@ -15,6 +15,7 @@ import dbcomplete.DBComplete;
 
 public class DAOAccount implements DAO<Account>{
     Connection conn;
+    public Variable overallVariable = new Variable();
 
     public DAOAccount(){
         conn = DBComplete.getConn();
@@ -48,7 +49,7 @@ public class DAOAccount implements DAO<Account>{
     }
 
     @Override
-    public void save(Account a){
+    public void save(Account a) throws Exception {
         try{
             PreparedStatement stmt = conn.prepareStatement("insert into accountdetails(LastName, FirstName, Email, Password, AccountType)" +
                     " values(?,?,?,?,?)");
@@ -62,6 +63,7 @@ public class DAOAccount implements DAO<Account>{
             stmt.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            this.error();
         }
     }
 
@@ -90,5 +92,31 @@ public class DAOAccount implements DAO<Account>{
             throwables.printStackTrace();
         }
         return false;
+    }
+
+    public boolean accountExists(String email, String pass){
+        try{
+            PreparedStatement stmt = conn.prepareStatement("select count(*) from accountdetails where (Email=? and Password=?)");
+            stmt.setString(1, email);
+            stmt.setString(2, pass);
+
+            ResultSet res = stmt.executeQuery();
+            Log.w("Ceva", "Empty");
+            if (res.next()){
+                Log.w("Ceva", res.toString());
+                if (res.getString(1).equals("1"))
+                    return true;
+            }
+            stmt.close();
+            return false;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    private void error() throws Exception{
+        throw new Exception();
     }
 }

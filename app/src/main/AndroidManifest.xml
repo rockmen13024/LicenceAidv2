@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LicenseAid">
         <activity
+            android:name=".EditProfile"
+            android:exported="false" />
+        <activity
             android:name=".MainPageStudent"
             android:exported="false" />
         <activity

@@ -27,7 +27,7 @@ import dao.DAOAccount;
 import dao.Variable;
 
 public class create_account extends AppCompatActivity {
-    public final Variable var = new Variable();
+    public Variable overallVariable = new Variable(); final Variable var = new Variable();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,10 +93,12 @@ public class create_account extends AppCompatActivity {
                     Account a = new Account(lastName, firstName, email, password, type);
                     account.save(a);
 
+                    var.isOk = true;
+
                 } catch (Exception throwables) {
+                    Log.w("CREATEACCOUNT", "HOPA");
                     throwables.printStackTrace();
                     var.isOk = false;
-                    Log.w("CREATEACCOUNT", "HOPA");
                 }
             }
         });
@@ -110,6 +112,8 @@ public class create_account extends AppCompatActivity {
             setContentView(R.layout.activity_main);
         }else{
             Log.w("CREATEACCOUNT", "Suntem aici");
+            Toast toast = Toast.makeText(getApplicationContext(), "Email already used", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 }

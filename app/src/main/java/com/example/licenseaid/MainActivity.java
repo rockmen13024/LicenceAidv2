@@ -20,19 +20,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import dao.DAOAccount;
 import dao.Variable;
 
 public class MainActivity extends AppCompatActivity {
     public Connection conn;
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    public final Variable var = new Variable();
+    private final Variable var = new Variable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Thread th = new Thread(new Runnable(){
+        /*Thread th = new Thread(new Runnable(){
             public void run() {
                 try {
                     conn = DriverManager.getConnection(database, name, pass);
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        th.start();
+        th.start();*/
     }
 
     public void createAccount(View view) {
@@ -67,26 +68,10 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String emailValue = email.getText().toString();
                 String passValue = passwd.getText().toString();;
-                try {
-                    conn = DriverManager.getConnection(database, name, pass);
 
-                    String sql = "select * as s from accountdetails where (Email=? and Password=?)";
-                    PreparedStatement stmt = conn.prepareStatement(sql);
-                    stmt.setString(1, emailValue);
-                    stmt.setString(2, passValue);
+                DAOAccount account = new DAOAccount();
 
-                    ResultSet rs = stmt.executeQuery(sql);
-                    if (rs.next()){
-                        var.isOk = true;
-                    }else{
-                        var.isOk = false;
-                    }
-                    stmt.close();
-                    Log.w("DATABASE", "Succes");
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                    Log.w("DATABASE", "Hmm");
-                }
+                var.isOk = account.accountExists(emailValue, passValue);
             }
         });
 
@@ -96,15 +81,14 @@ public class MainActivity extends AppCompatActivity {
         if (var.isOk){
             Toast toast = Toast.makeText(getApplicationContext(), "Login Succes", Toast.LENGTH_SHORT);
             toast.show();
-            setContentView(R.layout.activity_main);
 
             Intent intent = new Intent(this, MainPageStudent.class);
+            //setContentView(R.layout.activity_main_page_student);
             startActivity(intent);
         }else{
-            Toast toast = Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), "ERROR: Email or password don't match", Toast.LENGTH_SHORT);
             toast.show();
             //errorText.setText("Login failed!");
-            setContentView(R.layout.activity_main);
         }
     }
 
