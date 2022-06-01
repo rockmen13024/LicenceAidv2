@@ -24,7 +24,6 @@ import dao.DAOAccount;
 import dao.Variable;
 
 public class MainActivity extends AppCompatActivity {
-    public Connection conn;
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private final Variable var = new Variable();
 

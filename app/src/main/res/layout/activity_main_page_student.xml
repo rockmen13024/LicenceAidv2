@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainPageStudent">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Login Succes"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navigationView" />
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="409dp"
@@ -31,4 +20,36 @@
             android:onClick="openLink"
             android:text="Button" />
     </com.google.android.material.navigation.NavigationView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="409dp"
+        android:layout_height="70dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/navigationView">
+
+        <TextView
+            android:id="@+id/ArticleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20sp"
+            android:text="Article Name" />
+
+        <TextView
+            android:id="@+id/AuthorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Author" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="409dp"
+        android:layout_height="500dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

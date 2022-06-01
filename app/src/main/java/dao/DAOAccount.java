@@ -101,9 +101,7 @@ public class DAOAccount implements DAO<Account>{
             stmt.setString(2, pass);
 
             ResultSet res = stmt.executeQuery();
-            Log.w("Ceva", "Empty");
             if (res.next()){
-                Log.w("Ceva", res.toString());
                 if (res.getString(1).equals("1"))
                     return true;
             }
